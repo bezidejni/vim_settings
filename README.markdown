@@ -1,7 +1,7 @@
 # Installation
 
     cd ~
-    git clone http://github.com/username/dotvim.git ~/.vim
+    git clone git@github.com:bezidejni/vim_settings.git ~/.vim
     ln -s ~/.vim/vimrc ~/.vimrc
     ln -s ~/.vim/gvimrc ~/.gvimrc
     cd ~/.vim
