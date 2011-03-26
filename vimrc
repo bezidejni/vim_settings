@@ -32,9 +32,6 @@ set relativenumber
 set laststatus=2
 set pastetoggle=<F4>
 
-" Backups
-set backup                        " enable backups
-
 " Leader
 let mapleader = ","
 
@@ -114,16 +111,6 @@ function! MyFoldText()
 endfunction
 set foldtext=MyFoldText()
 
-
-" Various syntax stuff
-au BufNewFile,BufRead *.less set filetype=less
-au BufRead,BufNewFile *.scss set filetype=scss
-
-au BufNewFile,BufRead *.m*down set filetype=markdown
-au BufNewFile,BufRead *.m*down nnoremap <leader>1 yypVr=
-au BufNewFile,BufRead *.m*down nnoremap <leader>2 yypVr-
-au BufNewFile,BufRead *.m*down nnoremap <leader>3 I### <ESC>
-
 " Sort CSS
 map <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
@@ -147,36 +134,6 @@ nmap <leader>m :make<cr>
 au BufNewFile,BufRead *.js set makeprg=gjslint\ %
 au BufNewFile,BufRead *.js set errorformat=%-P-----\ FILE\ \ :\ \ %f\ -----,Line\ %l\\,\ E:%n:\ %m,%-Q,%-GFound\ %s,%-GSome\ %s,%-Gfixjsstyle%s,%-Gscript\ can\ %s,%-G
 
-" TESTING GOAT APPROVES OF THESE LINES
-au BufNewFile,BufRead test_*.py set makeprg=nosetests\ --machine-out\ --nocapture
-au BufNewFile,BufRead test_*.py set shellpipe=2>&1\ >/dev/null\ \|\ tee
-au BufNewFile,BufRead test_*.py set errorformat=%f:%l:\ %m
-au BufNewFile,BufRead test_*.py nmap <silent> <Leader>n <Plug>MakeGreen
-au BufNewFile,BufRead test_*.py nmap <Leader>N :make<cr>
-nmap <silent> <leader>ff :QFix<cr>
-nmap <leader>fn :cn<cr>
-nmap <leader>fp :cp<cr>
-
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
-function! QFixToggle(forced)
-  if exists("g:qfix_win") && a:forced == 0
-    cclose
-    unlet g:qfix_win
-  else
-    copen 10
-    let g:qfix_win = bufnr("$")
-  endif
-endfunction
-
-
-" TODO: Put this in filetype-specific files
-au BufNewFile,BufRead *.less set foldmethod=marker
-au BufNewFile,BufRead *.less set foldmarker={,}
-au BufNewFile,BufRead *.less set nocursorline
-au BufRead,BufNewFile /etc/nginx/conf/* set ft=nginx
-au BufRead,BufNewFile /etc/nginx/sites-available/* set ft=nginx
-au BufRead,BufNewFile /usr/local/etc/nginx/sites-available/* set ft=nginx
-
 " Easier linewise reselection
 map <leader>v V`]
 
@@ -184,14 +141,8 @@ map <leader>v V`]
 inoremap <leader>k <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
 
-" Scratch
-nmap <leader><tab> :Sscratch<cr><C-W>x<C-j>:resize 15<cr>
-
 " Diff
 nmap <leader>d :!hg diff %<cr>
-
-" Rainbows!
-nmap <leader>R :RainbowParenthesesToggle<CR>
 
 " Edit .vimrc
 nmap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
@@ -203,18 +154,6 @@ cmap w!! w !sudo tee % >/dev/null
 nnoremap _dt :set ft=htmldjango<CR>
 nnoremap _dj :set ft=python.django<CR>
 
-" VCS Stuff
-let VCSCommandMapPrefix = "<leader>h"
-
-" Disable useless HTML5 junk
-let g:event_handler_attributes_complete = 0
-let g:rdfa_attributes_complete = 0
-let g:microdata_attributes_complete = 0
-let g:atia_attributes_complete = 0
-
-
-" Save when losing focus
-au FocusLost * :wa
 
 " Stop it, hash key
 inoremap # X<BS>#
@@ -258,8 +197,6 @@ set autochdir
 
 if has('win32')
 	set guifont=Consolas:h10
-	
-	cd D:\Projekti
 	
    	map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR> 
 	
