@@ -151,7 +151,7 @@ nmap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 cmap w!! w !sudo tee % >/dev/null
 
 " Easy filetype switching
-nnoremap _dt :set ft=htmldjango<CR>
+nnoremap _dt :set ft=htmldjango.html<CR>
 nnoremap _dj :set ft=python.django<CR>
 
 
